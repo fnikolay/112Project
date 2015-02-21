@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<!--Problem 1-->
+<html>
+<head>
+  <title>Sorting</title><meta charset="utf-8">
+  <style>
+  body,div { background-color: #eee; font-family: sans; padding: 1em; }
+  </style>
+</head>
+<body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js">
+  </script>
+  <!-- Main Javascript code-->
+  <script>
+    function merge(left, right, arr) {
+	  var a = 0;
+	  //console.log(arr);
+	  while (left.length && right.length){
+	  	arr[a++] = right[0] < left[0] ? right.shift() : left.shift();
+	  	//console.log(arr);
+	  }
+	  while (left.length){
+	  	//console.log("left length = " + left.length);
+	  	arr[a++] = left.shift();
+	  	//console.log(arr);
+	  }
+	  while (right.length){
+	  	//console.log("right length = " + right.length);
+	  	arr[a++] = right.shift();
+	  	//console.log(arr);
+	  }
+    };
+    function mSort(arr, tmp, len) {
+	  if (len == 1) return;
+	  var m = Math.floor(len / 2),
+	  tmp_l = tmp.slice(0, m),
+	  tmp_r = tmp.slice(m);
+	  mSort(tmp_l, arr.slice(0, m), m);
+	  mSort(tmp_r, arr.slice(m), len - m);
+	  merge(tmp_l, tmp_r, arr);
+	  return arr
+    };
+    function merge_sort(arr) {
+	  return mSort(arr, arr.slice(), arr.length);
+    };
+    
+    function randInt(min, max) {
+      return Math.floor(Math.random() * (max-min+1) + min);
+    };
+
+    function unsortedArray(size){
+    	var unsorted = [];
+    	for (var i = 0; i < size; ++i){
+           unsorted.push(randInt(0,size));
+    	}
+    	return unsorted;
+    }
+
+ 
+    var arr = [1, 5, 2, 7, 3, 9, 4, 6, 8];
+  </script>
+</body>
+</html>
