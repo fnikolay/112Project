@@ -7,13 +7,13 @@
 typedef struct Node* nodeRef;
 
 typedef struct Node {
-    int data;
+    long data;
     struct Node* next;
     struct Node* prev;
 } NodeType;
 
 typedef struct List {
-    int length;
+    long length;
     NodeType* first;
     NodeType* last;
     NodeType* current;
@@ -40,7 +40,7 @@ void freeList(ListRef* pL){
 }
 
 /*** Access functions ***/
-int isEmpty(ListRef L){
+long isEmpty(ListRef L){
     if (L->first == NULL) {
         return 1;
     }else{
@@ -48,7 +48,7 @@ int isEmpty(ListRef L){
     }
 }
 
-int offEnd(ListRef L){
+long offEnd(ListRef L){
     if (L->current == NULL) {
         return 1;
     }else{
@@ -56,7 +56,7 @@ int offEnd(ListRef L){
     }
 }
 
-int atFirst(ListRef L){
+long atFirst(ListRef L){
     if (L->current == L->first && !offEnd(L)) {
         return 1;
     }else{
@@ -64,7 +64,7 @@ int atFirst(ListRef L){
     }
 }
 
-int atLast(ListRef L){
+long atLast(ListRef L){
     if (L->current == L->last && !offEnd(L)) {
         return 1;
     }else{
@@ -72,26 +72,26 @@ int atLast(ListRef L){
     }
 }
 
-int getFirst(ListRef L){
+long getFirst(ListRef L){
     assert(!isEmpty(L));
     return L->first->data;
 }
 
-int getLast(ListRef L){
+long getLast(ListRef L){
     assert(!isEmpty(L));
     return L->last->data;
 }
 
-int getCurrent(ListRef L){
+long getCurrent(ListRef L){
     assert(!isEmpty(L));
     return L->current->data;
 }
 
-int getLength(ListRef L){
+long getLength(ListRef L){
     return L->length;
 }
 
-int equals (ListRef A, ListRef B){
+long equals (ListRef A, ListRef B){
     nodeRef tmpA = A->current;
     nodeRef tmpB = B->current;
 
@@ -157,7 +157,7 @@ void moveNext(ListRef L){
     return;
 }
 
-void insertBeforeFirst(ListRef L, int data){
+void insertBeforeFirst(ListRef L, long data){
     nodeRef tmp = malloc(sizeof(struct Node));
     tmp->prev = NULL;
     tmp->data = data;
@@ -173,7 +173,7 @@ void insertBeforeFirst(ListRef L, int data){
     return;
 }
 
-void insertAfterLast(ListRef L, int data){
+void insertAfterLast(ListRef L, long data){
     nodeRef tmp = malloc(sizeof(struct Node));
     tmp->prev = NULL;
     tmp->data = data;
@@ -190,7 +190,7 @@ void insertAfterLast(ListRef L, int data){
     return;
 }
 
-void insertBeforeCurrent(ListRef L, int data){
+void insertBeforeCurrent(ListRef L, long data){
     assert(!offEnd(L));
     nodeRef tmp = malloc(sizeof(struct Node));
     tmp->prev = NULL;
@@ -216,7 +216,7 @@ void insertBeforeCurrent(ListRef L, int data){
     return;
 }
 
-void insertAfterCurrent(ListRef L, int data){
+void insertAfterCurrent(ListRef L, long data){
     assert(!offEnd(L));
     nodeRef tmp = malloc(sizeof(struct Node));
     tmp->prev = NULL;
@@ -272,7 +272,7 @@ void deleteCurrent(ListRef L){
 }
 
 /*** Other operations ***/
-void printList(FILE* out, ListRef L){
+void prlongList(FILE* out, ListRef L){
     nodeRef tmp = L->first;
     while(tmp != NULL){
         fprintf(out, "%ld ", tmp->data);

@@ -2,33 +2,63 @@
 #include <stdlib.h>
 #include <time.h>
 
-int *radix(int *A, int len){
-  int n = 1;
-  int base = 10;
-  int digit, curr;
-  int **buckets = (int **)calloc(len+1,sizeof(int));;
-  for(int i = 0; i < len; i++){
-    digit = A[i] % base;
-    digit = digit/n;
-    curr = buckets[digit][0]++;
-    buckets[digit][curr] = A[i];
-    printf("%d\n", digit);
+#include "list.h"
+
+long *radix(long *A, long len){
+  ListRef buckets[10];
+  for(long i = 0; i < 10; i++){
+    buckets[i] = newList();
+  }
+
+  long max = 0;
+  long n = 1;
+  long base = 10;
+  long digit;
+
+  for (long i = 1; i < len; i++) {
+      if (A[i] > max)
+        max = A[i];
+  }
+
+  while((max / n) > 0){
+    for(long i = 0; i < len; i++){
+      //printf("%ld ", A[i]);
+      digit = A[i] % base;
+      digit = digit/n;
+      insertAfterLast(buckets[digit], A[i]);
+    }
+
+    long index = 0;
+    for(long i = 0; i < 10; i++){
+      if(!isEmpty(buckets[i])){
+        while(!isEmpty(buckets[i])){
+          A[index] = getFirst(buckets[i]);
+          index++;
+          deleteFirst(buckets[i]);
+        }
+      }
+    }
+
+    printf("\n");
+
+    for(long i = 0; i < len; i++){
+      printf("%ld ", A[i]);
+    }
+    printf("\n");
+    //printf("\nBase: %ld, n: %ld\n", base, n);
     base *= 10;
     n *= 10;
-
   }
   return 0;
-
 }
 
 int main(void){
-  int *A = malloc(10*sizeof(int));
+  long *A = malloc(10*sizeof(long));
   srand(time(NULL));
 
-  for(int i = 0; i < 10; i++){
+  for(long i = 0; i < 10; i++){
     A[i] = rand();
-    printf("%d ", A[i]);
   }
-  printf("\n");
+
   radix(A ,10);
 }
