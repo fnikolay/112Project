@@ -12,52 +12,54 @@
   </script>
   <!-- Main Javascript code-->
   <script>
-    function merge(left, right, arr) {
-	  var a = 0;
-	  //console.log(arr);
-	  while (left.length && right.length){
-	  	arr[a++] = right[0] < left[0] ? right.shift() : left.shift();
-	  	//console.log(arr);
-	  }
-	  while (left.length){
-	  	//console.log("left length = " + left.length);
-	  	arr[a++] = left.shift();
-	  	//console.log(arr);
-	  }
-	  while (right.length){
-	  	//console.log("right length = " + right.length);
-	  	arr[a++] = right.shift();
-	  	//console.log(arr);
-	  }
+    //merge function 
+    function merge(left, right, array) {
+      var a = 0;
+      while (left.length && right.length){
+        if (right[0] < left[0]) {
+          array[a++] = right.shift()
+        } 
+        else {
+          array[a++] = left.shift()
+        }
+      }
+      while (left.length){
+        array[a++] = left.shift();
+      }
+      while (right.length){
+        array[a++] = right.shift();
+      }
     };
-    function mSort(arr, tmp, len) {
-	  if (len == 1) return;
-	  var m = Math.floor(len / 2),
-	  tmp_l = tmp.slice(0, m),
-	  tmp_r = tmp.slice(m);
-	  mSort(tmp_l, arr.slice(0, m), m);
-	  mSort(tmp_r, arr.slice(m), len - m);
-	  merge(tmp_l, tmp_r, arr);
-	  return arr
+
+    function mSort(array, temp, leng) {
+      if (leng == 1){
+        return;
+      }
+      var m = Math.floor(leng / 2),
+      left = temp.slice(0, m),
+      right = temp.slice(m);
+      mSort(left, array.slice(0, m), m);
+      mSort(right, array.slice(m), leng - m);
+      merge(left, right, array);
+      return array
     };
-    function merge_sort(arr) {
-	  return mSort(arr, arr.slice(), arr.length);
+
+    function merge_sort(array) {
+      return mSort(array, array.slice(), array.length);
     };
-    
+
     function randInt(min, max) {
-      return Math.floor(Math.random() * (max-min+1) + min);
+      return Math.floor(Math.random() * (max - min + 1) + min);
     };
 
     function unsortedArray(size){
-    	var unsorted = [];
-    	for (var i = 0; i < size; ++i){
-           unsorted.push(randInt(0,size));
-    	}
-    	return unsorted;
+      var unsorted = [];
+      for (var i = 0; i < size; ++i){
+        unsorted.push(randInt(0,size));
+      }
+      return unsorted;
     }
-
- 
     var arr = [1, 5, 2, 7, 3, 9, 4, 6, 8];
-  </script>
+</script>
 </body>
 </html>
