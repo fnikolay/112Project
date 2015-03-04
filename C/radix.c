@@ -1,6 +1,8 @@
+#include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+
 
 #include "list.h"
 
@@ -52,13 +54,26 @@ long *radix(long *A, long len){
   return 0;
 }
 
-int main(void){
-  long *A = malloc(10*sizeof(long));
-  srand(time(NULL));
-
-  for(long i = 0; i < 10; i++){
-    A[i] = rand();
+int main(int argc, char *argv[]){
+  if(argc < 2){
+    printf("ERROR: Missing input file\n");
+    return 1;
   }
 
-  radix(A ,10);
+  FILE *fp = fopen(argv[1], "r");
+
+  if( fp == NULL ){
+    perror("Error while opening the file.\n");
+    return 2;
+  }
+
+  long i = 0;
+  long *A = malloc(LONG_MAX*sizeof(long));
+  while(!feof (fp)){
+    fscanf (fp, "%ld", &A[i]);
+  }
+   fclose(fp);
+
+  radix(A ,i);
+  return 0;
 }
