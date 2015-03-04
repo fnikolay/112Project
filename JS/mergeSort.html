@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<!--Problem 1-->
+<html>
+<head>
+  <title>Sorting</title><meta charset="utf-8">
+  <style>
+  body,div { background-color: #eee; font-family: sans; padding: 1em; }
+  </style>
+</head>
+<body>
+  <input type="file" id="fileinput" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js">
+  </script>
+  <!-- Main Javascript code-->
+  <script>
+
+    function strArrToIntArr(strArray){
+      for (var i = 0; i < strArray.length; ++i) 
+        strArray[i] = +strArray[i];
+      return strArray;
+    };
+
+    //takes a file parses it into a list of strings
+    //calls strArrToIntArr which transforms each input to an int
+    //And sorts it.
+    function sortFile(evt) {
+      //take in a file
+      var file = evt.target.files[0]; 
+      if (file) {
+        var reader = new FileReader();
+        reader.onload = function(e) { 
+          var contents = e.target.result;
+          //parse the file into a string of ints
+          var fileToNumArr = contents.substr(0, contents.length).split(/\s+/);
+          //Not as general as I wanted it to me.
+          //It calls the specific sorting function
+          return mergeSort(strArrToIntArr(fileToNumArr));
+        }
+        reader.readAsText(file);
+      } else { 
+        console.log("File not loaded");
+        return;
+      }
+    };
+
+    //when file is selected run function sortFile
+    $("#fileinput").click(sortFile);
+
+    
+    function merge(left, right, array) {
+      var a = 0;
+      while (left.length && right.length){
+        if (right[0] < left[0]) {
+          array[a++] = right.shift();
+        } 
+        else {
+          array[a++] = left.shift();
+        }
+      }
+      while (left.length){
+        array[a++] = left.shift();
+      }
+      while (right.length){
+        array[a++] = right.shift();
+      }
+    };
+
+    function mSort(array, temp, leng) {
+      if (leng == 1){
+        return;
+      }
+      var m = Math.floor(leng / 2),
+      left = temp.slice(0, m),
+      right = temp.slice(m);
+      mSort(left, array.slice(0, m), m);
+      mSort(right, array.slice(m), leng - m);
+      merge(left, right, array);
+      return array
+    };
+
+    function mergeSort(array) {
+      var sorted = mSort(array, array.slice(), array.length);
+      console.log("sorted file:\n" + sorted); 
+      return sorted;
+    };
+
+    function msort(){
+      var arr = document.getElementById('fileinput');
+      console.log(arr);
+    }
+
+    function randInt(min, max) {
+      return Math.floor(Math.random() * (max - min + 1) + min);
+    };
+
+    function unsortedArray(size){
+      var unsorted = [];
+      for (var i = 0; i < size; ++i){
+        unsorted.push(randInt(0,size));
+      }
+      return unsorted;
+    }
+</script>
+</body>
+</html>
