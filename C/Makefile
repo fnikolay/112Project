@@ -12,13 +12,18 @@ all:radix quicksort mergesort
 radix: $(OBJS)
 	gcc -o $@ $^ $(CFLAGS)
 
-.PHONY: clean
-
-clean:
-	rm -f *.o
-
 quicksort : quicksort.c
 	gcc -std=c99 -pedantic -Wall -o quicksort quicksort.c
 
 mergesort: mergesort.c
 	gcc -std=c99 -pedantic -Wall -o mergesort mergesort.c
+
+.PHONY: clean
+
+clean:
+	rm -f *.o
+
+spotless: clean
+	rm radix
+	rm quicksort
+	rm mergesort
