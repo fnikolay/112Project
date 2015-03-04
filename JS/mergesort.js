@@ -1,4 +1,5 @@
-function merge(left, right, array) {
+//Mergesort Implementation
+function merge(array, left, right) {
   var a = 0;
   while (left.length && right.length){
     if (right[0] < left[0]) {
@@ -25,20 +26,14 @@ function mSort(array, temp, leng) {
   right = temp.slice(m);
   mSort(left, array.slice(0, m), m);
   mSort(right, array.slice(m), leng - m);
-  merge(left, right, array);
+  merge(array,left, right);
   return array
 };
 
 function mergeSort(array) {
   var sorted = mSort(array, array.slice(), array.length);
-  console.log("sorted file:\n" + sorted); 
   return sorted;
 };
-
-function msort(){
-  var arr = document.getElementById('fileinput');
-  console.log(arr);
-}
 
 if (process.argv.length != 3) {
   process.exit(0);
