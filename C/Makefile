@@ -7,7 +7,7 @@ OBJS =  list.o radix.o
 %.o: %.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
-all:radix
+all:radix quicksort
 
 radix: $(OBJS)
 	gcc -o $@ $^ $(CFLAGS)
@@ -16,3 +16,6 @@ radix: $(OBJS)
 
 clean:
 	rm -f *.o
+
+quicksort : quicksort.c
+	gcc -std=c99 -pedantic -Wall -o quicksort quicksort.c
