@@ -1,12 +1,4 @@
-#include <limits.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-
-
-#include "list.h"
-
-long *radix(long *A, long len){
+function radix(A,len){
   ListRef buckets[10];
   for(long i = 0; i < 10; i++){
     buckets[i] = newList();
@@ -50,39 +42,19 @@ long *radix(long *A, long len){
     base *= 10;
     n *= 10;
   }
-  return A;
+  return 0;
 }
 
-int main(int argc, char *argv[]){
-  if(argc < 2){
-    printf("ERROR: Missing input file\n");
-    return 1;
-  }
 
-  FILE* fp = fopen(argv[1], "r+");
-
-  if( fp == NULL ){
-    perror("Error while opening the file.\n");
-    return 2;
-  }
-  long size;
-  fscanf(fp, "%ld", &size);
-
-  long *A = malloc(size*sizeof(long));
-  int i = 0;
-
-  while(fscanf(fp, "%ld", &A[i]) == 1){
-    i++;
-  }
-
-  clock_t start = clock(), diff;
-  radix(A ,i);
-  diff = clock() - start;
-
-  float msec = diff * 1000 / CLOCKS_PER_SEC;
-  printf("Time taken %.9f\n", msec);
-
-  fclose(fp);
-
-  return 0;
+if (process.argv.length != 3) {
+  process.exit(0);
+}
+var fs = require('fs'); // Read values from file
+var array = fs.readFileSync(process.argv[2]).toString().split(/\s+/);
+for (var i = 0; i < array.length; ++i) {
+  array[i] = parseInt(array[i]);
+}
+mergeSort(array); // mergesort
+for (var i = 0; i < array.length; ++i) {
+  console.log(array[i]);
 }
