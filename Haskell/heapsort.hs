@@ -36,10 +36,9 @@ main = do
     handle <- openFile n ReadMode
     contents <- hGetContents handle
     let singlewords = words contents
-        list = f singlewords    
-
     start <- getCPUTime
     let sorted = heapsort list
+    print(heapsort (list))
     end <- getCPUTime
     let diff = (fromIntegral (end - start)) / (10^12)
 
