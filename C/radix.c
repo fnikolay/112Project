@@ -41,12 +41,6 @@ long *radix(long *A, long len){
       }
     }
 
-    printf("\n");
-
-    for(long i = 0; i < len; i++){
-      printf("%ld ", A[i]);
-    }
-    printf("\n");
     base *= 10;
     n *= 10;
   }

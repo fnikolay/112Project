@@ -45,11 +45,6 @@ for (var i = 0; i < array.length; ++i) {
 }
 
 var start = new Date().getTime() ;
-radix(array);
+radix(array); // mergesort
 var end = new Date().getTime();
-var diff = (end-start)/1000;
-console.log(diff);
-
-for (var i = 0; i < array.length; ++i) {
-  console.log(array[i]);
-}
+console.log(((end-start)/1000));

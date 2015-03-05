@@ -48,6 +48,7 @@ main = do
     putStrLn "Starting..."
     start <- getCPUTime
     let sorted = radixS 1 10 list
+    print sorted
     end <- getCPUTime
     printf "Unsorted List:"
     print list
