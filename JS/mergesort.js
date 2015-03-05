@@ -31,10 +31,9 @@ function mSort(array, temp, leng) {
 };
 
 function mergeSort(array) {
-  var start = new Date().getTime() ;
+
   var sorted = mSort(array, array.slice(), array.length);
-  var end = new Date().getTime();
-  console.log((end-start)/1000);
+
   return sorted;
 };
 
@@ -46,7 +45,11 @@ var array = fs.readFileSync(process.argv[2]).toString().split(/\s+/);
 for (var i = 0; i < array.length; ++i) {
   array[i] = parseInt(array[i]);
 }
+
+var start = new Date().getTime() ;
 mergeSort(array); // mergesort
+var end = new Date().getTime();
+console.log("Time in milliseconds: " + ((end-start)/1000));
 //console.log(array);
 //for (var i = 0; i < array.length; ++i) {
 //  console.log(array[i]);

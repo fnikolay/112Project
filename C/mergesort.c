@@ -71,11 +71,11 @@ int main(int argc, char *argv[]){
   diff = clock() - start;
 
   float msec = diff * 1000 / (float) CLOCKS_PER_SEC;
-  int j;
-  for (j = 0; j < i; ++j)
-    printf("%d\n", A[j]);
+  //int j;
+  //for (j = 0; j < i; ++j)
+   // printf("%d\n", A[j]);
 
-  printf("Time taken %.9f\n", msec);
+  printf("Time taken %.9lf\n", msec);
 
   fclose(fp);
 
