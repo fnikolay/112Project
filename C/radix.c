@@ -79,8 +79,8 @@ int main(int argc, char *argv[]){
   radix(A ,i);
   diff = clock() - start;
 
-  float msec = diff * 1000 / CLOCKS_PER_SEC;
-  printf("Time taken %.9f\n", msec);
+  float msec = diff * 1000 / (float) CLOCKS_PER_SEC;
+  printf("Time taken %lf\n", msec);
 
   fclose(fp);
 
