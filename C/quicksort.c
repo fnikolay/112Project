@@ -50,10 +50,8 @@ int main(int argc, char *argv[]) {
   char *buffer = NULL;
   size_t nbytes;
   size_t arraysize = 0;
-  while (getline(&buffer, &nbytes, file) != EOF) // Read sequence length
-    ++arraysize;
-
-  rewind(file);
+  getline(&buffer, &nbytes, file); // Read sequence length
+  arraysize = atoi(buffer);
   int *array = malloc(arraysize*sizeof(int));
   for (int i = 0; i < arraysize; ++i) {
     getline(&buffer, &nbytes, file); // Read values from file
