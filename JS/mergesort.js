@@ -31,7 +31,10 @@ function mSort(array, temp, leng) {
 };
 
 function mergeSort(array) {
+  var start = new Date().getTime() ;
   var sorted = mSort(array, array.slice(), array.length);
+  var end = new Date().getTime();
+  console.log((end-start)/1000);
   return sorted;
 };
 
