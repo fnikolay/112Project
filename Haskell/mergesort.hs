@@ -40,13 +40,14 @@ main = do
         list = f singlewords
         
     putStrLn "Starting..."
-    start <- getCPUTime
+    
     let sorted = mergeSort list
-    end <- getCPUTime
     --printf "Unsorted List:"
     --print list
     --printf "Sorted List:"
+    start <- getCPUTime
     print sorted
+    end <- getCPUTime
     let diff = (fromIntegral (end - start)) / (10^12)
     printf "Computation time: %0.9f sec\n" (diff :: Double)
     printf "Individual time: %0.9f sec\n" (diff / fromIntegral lim :: Double)
