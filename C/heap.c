@@ -61,6 +61,6 @@ void heapSort(int arr[], int length)
         }
         arr[index] = t; 
     }
-    }
+}
 
 
