@@ -43,9 +43,9 @@ main = do
     start <- getCPUTime
     let sorted = mergeSort list
     end <- getCPUTime
-    printf "Unsorted List:"
-    print list
-    printf "Sorted List:"
+    --printf "Unsorted List:"
+    --print list
+    --printf "Sorted List:"
     print sorted
     let diff = (fromIntegral (end - start)) / (10^12)
     printf "Computation time: %0.9f sec\n" (diff :: Double)
