@@ -49,7 +49,7 @@ for (var i = 0; i < array.length; ++i) {
 var start = new Date().getTime() ;
 mergeSort(array); // mergesort
 var end = new Date().getTime();
-console.log("Time in milliseconds: " + ((end-start)/1000));
+console.log(((end-start)/1000));
 //console.log(array);
 //for (var i = 0; i < array.length; ++i) {
 //  console.log(array[i]);
