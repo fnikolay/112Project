@@ -83,6 +83,6 @@ int main(int argc, char *argv[]){
   printf("Time taken %lf\n", msec);
 
   fclose(fp);
-
+  free(A);
   return 0;
 }
