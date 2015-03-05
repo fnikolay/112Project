@@ -31,7 +31,10 @@ function mSort(array, temp, leng) {
 };
 
 function mergeSort(array) {
+  var start = new Date().getTime() ;
   var sorted = mSort(array, array.slice(), array.length);
+  var end = new Date().getTime();
+  console.log((end-start)/1000);
   return sorted;
 };
 
@@ -44,6 +47,7 @@ for (var i = 0; i < array.length; ++i) {
   array[i] = parseInt(array[i]);
 }
 mergeSort(array); // mergesort
-for (var i = 0; i < array.length; ++i) {
-  console.log(array[i]);
-}
+//console.log(array);
+//for (var i = 0; i < array.length; ++i) {
+//  console.log(array[i]);
+//}
