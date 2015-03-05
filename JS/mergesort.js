@@ -47,6 +47,7 @@ for (var i = 0; i < array.length; ++i) {
   array[i] = parseInt(array[i]);
 }
 mergeSort(array); // mergesort
-for (var i = 0; i < array.length; ++i) {
-  console.log(array[i]);
-}
+//console.log(array);
+//for (var i = 0; i < array.length; ++i) {
+//  console.log(array[i]);
+//}
