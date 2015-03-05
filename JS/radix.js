@@ -44,7 +44,12 @@ for (var i = 0; i < array.length; ++i) {
   array[i] = parseInt(array[i]);
 }
 
+var start = new Date().getTime() ;
 radix(array);
+var end = new Date().getTime();
+var diff = (end-start)/1000;
+console.log(diff);
+
 for (var i = 0; i < array.length; ++i) {
   console.log(array[i]);
 }
