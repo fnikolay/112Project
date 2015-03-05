@@ -1,25 +1,43 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <limits.h>
 #include <time.h>
 
 void heapSort(int arr[], int length);
 
-int main(){
-	int d[6] = {3,4,11,1,22,14};
-	heapSort(d, 6);
-	for(int i=0; i<6; i++)
-    	printf("%d ", d[i]);
-    	printf("\n");
-	return 0;
+int main(int argc, char *argv[]){
+  FILE* fp = fopen(argv[1], "r+");
+
+  if( fp == NULL ){
+    perror("Error while opening the file.\n");
+    return 2;
+  }
+  long size;
+  fscanf(fp, "%ld", &size);
+
+  int *A = malloc(size*sizeof(long));
+  int i = 0;
+
+  while(fscanf(fp, "%d", &A[i]) == 1){
+        i++;
+    }
+    clock_t start = clock(), diff;
+    heapSort(A, size);
+	diff = clock() - start;
+
+  float msec = diff * 1000 / (float) CLOCKS_PER_SEC;
+  int j;
+  for (j = 0; j < i; ++j)
+    printf("%d\n", A[j]);
+
+  printf("Time taken %.9f\n", msec);
+
+  fclose(fp);
 }
 
 void heapSort(int arr[], int length) 
 {
-    time_t start;
-    time_t end;
-    start = time(NULL);
-    printf("start: %ld\n", (start));
-
 
     if(length==0) // check if heap is empty
       return;
@@ -35,10 +53,6 @@ void heapSort(int arr[], int length)
         } else {
             n--;                
             if (n == 0) {
-            	end = time(NULL);
-            	printf("end: %ld\n", (end));
-
-    			printf("total: %ld\n", (end)-(start));
                 return; 
             }
             t = arr[n];         
@@ -61,6 +75,6 @@ void heapSort(int arr[], int length)
         }
         arr[index] = t; 
     }
-    }
+}
 
 

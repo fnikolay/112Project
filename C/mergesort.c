@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
+#include <limits.h>
 
 void mergeSort(int *array, int left, int right){
   int mid = 0;
@@ -42,13 +44,41 @@ void mergeSort(int *array, int left, int right){
 }
 
 
-int main(int argc, char *argv[]) {
-  int arr[10] = {3,4,3,7,1,22,0,6,7,2};
-  int len = (sizeof(arr) / sizeof(arr[0]));
-  mergeSort(arr, 0 , len - 1);
-  int i;
-  for (i = 0; i < len; i++){
-    printf("[%d]: %d\n",i,arr[i]);
+int main(int argc, char *argv[]){
+  if(argc < 2){
+    printf("ERROR: Missing input file\n");
+    return 1;
   }
+
+  FILE* fp = fopen(argv[1], "r+");
+
+  if( fp == NULL ){
+    perror("Error while opening the file.\n");
+    return 2;
+  }
+  long size;
+  fscanf(fp, "%ld", &size);
+
+  int *A = malloc(size*sizeof(long));
+  int i = 0;
+
+  while(fscanf(fp, "%ld", &A[i]) == 1){
+    i++;
+  }
+
+  clock_t start = clock(), diff;
+  mergeSort(A ,0, i);
+  diff = clock() - start;
+
+  float msec = diff * 1000 / (float) CLOCKS_PER_SEC;
+  //int j;
+  //for (j = 0; j < i; ++j)
+   // printf("%d\n", A[j]);
+
+  printf("Time taken %.9lf\n", msec);
+
+  fclose(fp);
+
   return 0;
 }
+

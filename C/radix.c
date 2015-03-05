@@ -47,11 +47,10 @@ long *radix(long *A, long len){
       printf("%ld ", A[i]);
     }
     printf("\n");
-    //printf("\nBase: %ld, n: %ld\n", base, n);
     base *= 10;
     n *= 10;
   }
-  return 0;
+  return A;
 }
 
 int main(int argc, char *argv[]){
@@ -60,20 +59,30 @@ int main(int argc, char *argv[]){
     return 1;
   }
 
-  FILE *fp = fopen(argv[1], "r");
+  FILE* fp = fopen(argv[1], "r+");
 
   if( fp == NULL ){
     perror("Error while opening the file.\n");
     return 2;
   }
+  long size;
+  fscanf(fp, "%ld", &size);
 
-  long i = 0;
-  long *A = malloc(LONG_MAX*sizeof(long));
-  while(!feof (fp)){
-    fscanf (fp, "%ld", &A[i]);
+  long *A = malloc(size*sizeof(long));
+  int i = 0;
+
+  while(fscanf(fp, "%ld", &A[i]) == 1){
+    i++;
   }
-   fclose(fp);
 
+  clock_t start = clock(), diff;
   radix(A ,i);
+  diff = clock() - start;
+
+  float msec = diff * 1000 / (float) CLOCKS_PER_SEC;
+  printf("Time taken %lf\n", msec);
+
+  fclose(fp);
+  free(A);
   return 0;
 }

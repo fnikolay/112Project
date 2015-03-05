@@ -18,6 +18,9 @@ quicksort : quicksort.c
 mergesort: mergesort.c
 	gcc -std=c99 -pedantic -Wall -o mergesort mergesort.c
 
+heap: heap.c
+	gcc -std=c99 -pedantic -Wall -o heap heap.c
+
 .PHONY: clean
 
 clean:
@@ -27,3 +30,4 @@ spotless: clean
 	rm radix
 	rm quicksort
 	rm mergesort
+	rm heap
