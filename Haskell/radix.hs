@@ -5,6 +5,7 @@ import Control.Parallel.Strategies
 import System.IO
 import System.CPUTime
 import System.Environment
+import Control.DeepSeq
 
 
 lim :: Int
@@ -48,14 +49,8 @@ main = do
     putStrLn "Starting..."
     start <- getCPUTime
     let sorted = radixS 1 10 list
-    print sorted
-    end <- getCPUTime
-    printf "Unsorted List:"
-    print list
-    printf "Sorted List:"
-    print sorted
+    end <- sorted `deepseq` getCPUTime
     let diff = (fromIntegral (end - start)) / (10^12)
     printf "Computation time: %0.9f sec\n" (diff :: Double)
-    printf "Individual time: %0.9f sec\n" (diff / fromIntegral lim :: Double)
     putStrLn "Done."
     hClose handle
