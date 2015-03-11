@@ -26,12 +26,14 @@ radixS n base xs
   | (div (Prelude.maximum xs) n) <= 0 = xs
 
 mergeB :: Int -> Int -> [Int] -> [Int]
-mergeB n base xs = toList (Data.Foldable.foldl1 (><) (getBucket n base [empty | i <- [1..10]] xs))
+mergeB n base xs = toList (Data.Foldable.foldl1 (><) (getBucket n base (fromList [empty | i <- [1..10]]) xs))
 
-getBucket :: Int -> Int -> [Seq Int] -> [Int] -> [Seq Int]
+getBucket :: Int -> Int -> Seq (Seq Int) -> [Int] -> Seq (Seq Int)
 getBucket n base b [] = b
-getBucket n base b (x:xs) = let (ys,zs) = Prelude.splitAt (getDigit x n base) b in
-                            getBucket n base (ys ++ [(insertB (b !! (getDigit x n base)) x)] ++ (tail zs)) xs
+getBucket n base b (x:xs) = let i = (getDigit x n base) in
+                               getBucket n base (update i (insertB (index b i) x) b) xs
+
+
 
 insertB :: Seq Int -> Int -> Seq Int
 insertB b x = b |> x
