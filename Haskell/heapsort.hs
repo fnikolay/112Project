@@ -5,9 +5,7 @@ import Control.Parallel.Strategies
 import System.IO
 import System.CPUTime
 import System.Environment
-
-
-
+import Control.DeepSeq
 import Data.Graph.Inductive.Internal.Heap(
   Heap(..),insert,findMin,deleteMin)
 
@@ -36,19 +34,11 @@ main = do
     handle <- openFile n ReadMode
     contents <- hGetContents handle
     let singlewords = words contents
+        list = f singlewords
+
     start <- getCPUTime
     let sorted = heapsort list
-    print(heapsort (list))
-    end <- getCPUTime
-    let diff = (fromIntegral (end - start)) / (10^12)
-
-
-    printf "Unsorted List:"
-    print list
-    printf "Sorted List:"
-    print sorted
-    printf "Computation time: %0.9f sec\n" (diff :: Double)
-    printf "Individual time: %0.9f sec\n" (diff / fromIntegral lim :: Double)
-
-
-
+    end <- sorted `deepseq` getCPUTime
+    let diff = (end - start) `div` (10^9)
+    printf "%d\n" (diff :: Integer)
+    hClose handle

@@ -5,6 +5,7 @@ import Control.Parallel.Strategies
 import System.IO
 import System.CPUTime
 import System.Environment
+import Control.DeepSeq
 
 --mergesort haskell implementation
 lim :: Int
@@ -38,18 +39,10 @@ main = do
     contents <- hGetContents handle
     let singlewords = words contents
         list = f singlewords
-        
-    putStrLn "Starting..."
-    
-    let sorted = mergeSort list
-    --printf "Unsorted List:"
-    --print list
-    --printf "Sorted List:"
+
     start <- getCPUTime
-    print sorted
-    end <- getCPUTime
-    let diff = (fromIntegral (end - start)) / (10^12)
-    printf "Computation time: %0.9f sec\n" (diff :: Double)
-    printf "Individual time: %0.9f sec\n" (diff / fromIntegral lim :: Double)
-    putStrLn "Done."
+    let sorted = mergeSort list
+    end <- sorted `deepseq` getCPUTime
+    let diff = (end - start) `div` (10^9)
+    printf "%d\n" (diff :: Integer)
     hClose handle

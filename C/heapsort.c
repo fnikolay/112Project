@@ -7,6 +7,8 @@
 void heapSort(int arr[], int length);
 
 int main(int argc, char *argv[]){
+  if (argc != 2)
+    return 0;
   FILE* fp = fopen(argv[1], "r+");
 
   if( fp == NULL ){
@@ -27,7 +29,6 @@ int main(int argc, char *argv[]){
 	diff = clock() - start;
 
   float msec = diff * 1000 / (float) CLOCKS_PER_SEC;
-  int j;
   // for (j = 0; j < i; ++j)
   //   printf("%d\n", A[j]);
 

@@ -73,12 +73,11 @@ int main(int argc, char *argv[]){
   mergeSort(A ,0, i);
   diff = clock() - start;
 
-  float msec = diff * 1000 / (float) CLOCKS_PER_SEC;
   //int j;
   //for (j = 0; j < i; ++j)
    // printf("%d\n", A[j]);
 
-  printf("Time taken %.9lf\n", msec);
+  printf("%lu\n", diff);
 
   fclose(fp);
 

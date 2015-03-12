@@ -1,25 +1,25 @@
-CC= gcc -g -O0 -Wall -Wextra -std=gnu99
+CC= gcc -O2 -Wall -Wextra -std=gnu99
 CFLAGS=-I.
 
 DEPS = list.h
-OBJS =  list.o radix.o
+OBJS =  list.o radixsort.o
 
 %.o: %.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
-all:radix quicksort mergesort
+all:radixsort quicksort mergesort heapsort
 
-radix: $(OBJS)
+radixsort: $(OBJS)
 	gcc -o $@ $^ $(CFLAGS)
 
 quicksort : quicksort.c
-	gcc -std=c99 -pedantic -Wall -o quicksort quicksort.c
+	$(CC) -o quicksort quicksort.c
 
 mergesort: mergesort.c
-	gcc -std=c99 -pedantic -Wall -o mergesort mergesort.c
+	$(CC) -o mergesort mergesort.c
 
-heap: heap.c
-	gcc -std=c99 -pedantic -Wall -o heap heap.c
+heapsort: heapsort.c
+	$(CC) -o heapsort heapsort.c
 
 .PHONY: clean
 
@@ -27,7 +27,7 @@ clean:
 	rm -f *.o
 
 spotless: clean
-	rm radix
+	rm radixsort
 	rm quicksort
 	rm mergesort
-	rm heap
+	rm heapsort

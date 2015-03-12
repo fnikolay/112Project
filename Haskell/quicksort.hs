@@ -5,7 +5,7 @@ import Control.Parallel.Strategies
 import System.IO
 import System.CPUTime
 import System.Environment
-
+import Control.DeepSeq
 
 lim :: Int
 lim = 10^6
@@ -28,15 +28,9 @@ main = do
     let singlewords = words contents
         list = f singlewords
 
-    putStrLn "Starting..."
     start <- getCPUTime
     let sorted = quicksort list
-    end <- getCPUTime
-    printf "Unsorted List:"
-    print list
-    printf "Sorted List:"
-    print sorted
-    let diff = (fromIntegral (end - start)) / (10^12)
-    printf "Computation time: %0.9f sec\n" (diff :: Double)
-    putStrLn "Done."
+    end <- sorted `deepseq` getCPUTime
+    let diff = (end - start) `div` (10^9)
+    printf "%d\n" (diff :: Integer)
     hClose handle
