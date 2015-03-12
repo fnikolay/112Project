@@ -7,8 +7,8 @@
 
 void mergeSort(int *array, int s, int f){
   int mid = 0;
-  int len = f - s + 1;
   int * temp;
+  int len = f - s + 1;
   if (s == f){
     return;
   }
@@ -23,8 +23,9 @@ void mergeSort(int *array, int s, int f){
   }
   int tempS = 0;
   int tempF = mid - s + 1;
-  
 
+  //main for loop that goes through the length
+  //of the array
   for(i = 0; i < len; i++){
     if (tempF <= f - s){
       if (tempS <= mid - s){
