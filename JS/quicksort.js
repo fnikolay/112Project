@@ -42,7 +42,7 @@ var array = fs.readFileSync(process.argv[2]).toString().split("\n");
 for (var i = 0; i < array.length; ++i) {
   array[i] = parseInt(array[i]);
 }
+var start = new Date().getTime() ;
 sort(array, 0, array.length - 1); // Quicksort
-for (var i = 0; i < array.length; ++i) {
-  console.log(array[i]);
-}
+var end = new Date().getTime();
+console.log(end - start);

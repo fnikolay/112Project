@@ -30,21 +30,17 @@ function buildMaxHeap(array) {
 function heapSort(array) {
     buildMaxHeap(array);
     var start = new Date().getTime() ;
-    console.log(start);
+    //console.log(start);
     for (var i = array.length - 1; i >= 1; i--) {
         exchange(array, 0, i);
         array.heapSize--;
         maxHeapify(array, 0);
         //update(array);
     }
-    var end = new Date().getTime();
-    console.log(end);
-    console.log(end-start);
+    //var end = new Date().getTime();
+    //console.log(end);
+    //console.log(end-start);
 
-
-    for(j=0; j<array.length; j++){
-        //console.log(array[j]);
-    }
 };
 
 if (process.argv.length != 3) {
@@ -55,7 +51,8 @@ var array = fs.readFileSync(process.argv[2]).toString().split("\n");
 for (var i = 0; i < array.length; ++i) {
   array[i] = parseInt(array[i]);
 }
-heapSort(array, 0, array.length - 1); // Quicksort
-for (var i = 0; i < array.length; ++i) {
-  console.log(array[i]);
-}
+var start = new Date().getTime();
+heapSort(array, 0, array.length - 1);
+var end = new Date().getTime();
+console.log(end - start);
+
