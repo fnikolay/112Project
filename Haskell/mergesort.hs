@@ -10,17 +10,17 @@ import System.Environment
 lim :: Int
 lim = 10^6
 
-subDivide :: [Int] -> ([Int],[Int])
-subDivide (x:y:rest) = let (left,right) = subDivide rest in (x:left, y:right)
-subDivide [x] = ([x],[])
-subDivide []  = ([],[])
-
 merge :: [Int] -> [Int] -> [Int]
-merge [] right = right
 merge left []  = left
+merge [] right = right
 merge left@(l:ls) right@(r:rs)
     | l <= r    = l : merge ls right
     | otherwise = r : merge left rs
+
+subDivide :: [Int] -> ([Int],[Int])
+subDivide (a:b:rest) = let (left,right) = subDivide rest in (a:left, b:right)
+subDivide [a] = ([a],[])
+subDivide []  = ([],[])
 
 mergeSort :: [Int] -> [Int]
 mergeSort []     = []

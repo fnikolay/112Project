@@ -5,39 +5,42 @@
 #include <time.h>
 #include <limits.h>
 
-void mergeSort(int *array, int left, int right){
+void mergeSort(int *array, int s, int f){
   int mid = 0;
-  int len = right - left + 1;
   int * temp;
-  if (left == right){
+  int len = f - s + 1;
+  if (s == f){
     return;
   }
-  mid = (left + right) / 2;
-  mergeSort(array, left, mid);
-  mergeSort(array, mid + 1, right);
+  mid = (s + f) / 2;
+  mergeSort(array, s, mid);
+  mergeSort(array, mid + 1, f);
   temp = malloc (len*sizeof(int));
   
   int i;
   for(i = 0; i < len; ++i){
-    temp[i] = array[left + i];
+    temp[i] = array[s + i];
   }
-  
-  int m1 = 0;
-  int m2 = mid - left + 1;
-  
+  int tempS = 0;
+  int tempF = mid - s + 1;
+
+  //main for loop that goes through the length
+  //of the array
   for(i = 0; i < len; i++){
-    if (m2 <= right - left){
-      if (m1 <= mid - left){
-        if(temp[m1] > temp[m2]){
-          array[i + left] = temp[m2++];
+    if (tempF <= f - s){
+      if (tempS <= mid - s){
+        //perform the comparison if the left
+        //int is larger than the right one
+        if(temp[tempS] > temp[tempF]){
+          array[i + s] = temp[tempF++];
         }else{
-          array[i+left] = temp[m1++];
+          array[i + s] = temp[tempS++];
         }
       }else{
-        array[i+left] = temp[m2++];
+        array[i + s] = temp[tempF++];
       }
     }else{
-      array[i + left] = temp[m1++];
+      array[i + s] = temp[tempS++];
     }
   }
   free(temp);
@@ -62,7 +65,7 @@ int main(int argc, char *argv[]){
   int *A = malloc(size*sizeof(long));
   int i = 0;
 
-  while(fscanf(fp, "%ld", &A[i]) == 1){
+  while(fscanf(fp, "%d", &A[i]) == 1){
     i++;
   }
 
