@@ -10,7 +10,7 @@ function radix(A){
   }
 
   while((max / n) > 0){
-    for(var i = 0; i < A.length; i++){
+    for(var i = 0; i < A.length-1; i++){
       digit = A[i] % base;
       //console.log(digit);
       digit = Math.floor(digit / n);
