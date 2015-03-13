@@ -19,15 +19,16 @@ merge left@(l:ls) right@(r:rs)
     | otherwise = r : merge left rs
 
 subDivide :: [Int] -> ([Int],[Int])
-subDivide (a:b:rest) = let (left,right) = subDivide rest in (a:left, b:right)
+subDivide (a:b:rest) = (a:left, b:right) where
+                       (left,right) = subDivide rest 
 subDivide [a] = ([a],[])
 subDivide []  = ([],[])
 
 mergeSort :: [Int] -> [Int]
 mergeSort []     = []
 mergeSort [arr]  = [arr]
-mergeSort array  = let (left,right) = subDivide array
-                in merge (mergeSort left) (mergeSort right)
+mergeSort array  = merge (mergeSort left) (mergeSort right) where
+                   (left,right) = subDivide array
 
 f :: [String] -> [Int]
 f = map read
