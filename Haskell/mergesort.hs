@@ -11,18 +11,18 @@ import Control.DeepSeq
 lim :: Int
 lim = 10^6
 
+subDivide :: [Int] -> ([Int],[Int])
+subDivide (a:b:rest) = (a:left, b:right) where
+                       (left,right) = subDivide rest 
+subDivide [a] = ([a],[])
+subDivide []  = ([],[])
+
 merge :: [Int] -> [Int] -> [Int]
 merge left []  = left
 merge [] right = right
 merge left@(l:ls) right@(r:rs)
     | l <= r    = l : merge ls right
     | otherwise = r : merge left rs
-
-subDivide :: [Int] -> ([Int],[Int])
-subDivide (a:b:rest) = (a:left, b:right) where
-                       (left,right) = subDivide rest 
-subDivide [a] = ([a],[])
-subDivide []  = ([],[])
 
 mergeSort :: [Int] -> [Int]
 mergeSort []     = []
