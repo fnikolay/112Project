@@ -37,18 +37,18 @@ main = do
     handle <- openFile n ReadMode
     contents <- hGetContents handle
     let singlewords = words contents
-        list = f singlewords
-        
-    putStrLn "Starting..."
-    start <- getCPUTime
+        list = f singlewords    
+
     let sorted = mergeSort list
-    end <- getCPUTime
-    --printf "Unsorted List:"
-    --print list
-    --printf "Sorted List:"
+
+
+    printf "Unsorted List:"
+    print list
+    printf "Sorted List:"
+    start <- getCPUTime
     print sorted
+    end <- getCPUTime
     let diff = (fromIntegral (end - start)) / (10^12)
+
     printf "Computation time: %0.9f sec\n" (diff :: Double)
     printf "Individual time: %0.9f sec\n" (diff / fromIntegral lim :: Double)
-    putStrLn "Done."
-    hClose handle

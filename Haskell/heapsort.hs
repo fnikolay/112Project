@@ -1,31 +1,34 @@
-import Text.Printf
-import Control.Monad
-import Control.Exception
-import Control.Parallel.Strategies
-import System.IO
 import System.CPUTime
 import System.Environment
-
-
-
-import Data.Graph.Inductive.Internal.Heap(
-  Heap(..),insert,findMin,deleteMin)
+import System.IO
+import Text.Printf
 
 lim :: Int
 lim = 10^6
+
+--heap data structure
+data Heap h = Empty | T Int h (Heap h) (Heap h) 
  
--- heapsort is added in this module as an example application
+rank Empty = 0 
+rank (T r _ _ _) = r 
  
-build :: Ord a => [(a,b)] -> Heap a b
-build = foldr insert Empty
+heapify x a b = 
+    if rank a > rank b then 
+        T (rank b + 1) x a b 
+    else 
+        T (rank a + 1) x b a 
  
-toList :: Ord a => Heap a b -> [(a,b)]
-toList Empty = []
-toList h = x:toList r
-           where (x,r) = (findMin h,deleteMin h)
+merge h Empty = h 
+merge Empty h = h
+
+merge h1@(T _ x a1 b1) h2@(T _ y a2 b2) = 
+    if x >= y then heapify x a1 (merge b1 h2) else heapify y a2 (merge h1 b2) 
  
-heapsort :: Ord a => [a] -> [a]
-heapsort = (map fst) . toList . build . map (\x->(x,x))
+toList xs Empty = xs 
+toList xs (T _ x a b) = toList (x:xs) (merge a b)
+ 
+heapsort xs = toList [] (foldl (\h x -> merge (heapify x Empty Empty) h) Empty xs)
+
 
 f :: [String] -> [Int]
 f = map read
@@ -36,19 +39,19 @@ main = do
     handle <- openFile n ReadMode
     contents <- hGetContents handle
     let singlewords = words contents
-    start <- getCPUTime
+        list = f singlewords    
+
     let sorted = heapsort list
-    print(heapsort (list))
-    end <- getCPUTime
-    let diff = (fromIntegral (end - start)) / (10^12)
 
 
     printf "Unsorted List:"
     print list
     printf "Sorted List:"
+    start <- getCPUTime
     print sorted
+    end <- getCPUTime
+    let diff = (fromIntegral (end - start)) / (10^12)
+
+
     printf "Computation time: %0.9f sec\n" (diff :: Double)
     printf "Individual time: %0.9f sec\n" (diff / fromIntegral lim :: Double)
-
-
-
