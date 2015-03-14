@@ -5,69 +5,14 @@
 
 typedef struct List* ListRef;
 
-// Constructors
-/*** Constructors-Destructors ***/
 ListRef newList(void);
 
-void freeList(ListRef* pL);
+long isEmpty(ListRef L);
 
-/*** Access functions ***/
-long isEmpty(ListRef L);// returns true is list is empty else returns false.
+long get(ListRef L);
 
-long offEnd(ListRef L); // returns true is current == NULL
+void insert(ListRef L, long data);
 
-long atFirst(ListRef L); // returns true if current == first and !offEnd()
-
-long atLast(ListRef L); // returns true if current == last and !offEnd()
-
-long getFirst(ListRef L); // return the first element; pre: !isEmpty()
-
-long getLast(ListRef L); // return the last element; pre: !isEmpty()
-
-long getCurrent(ListRef L); // return the current element pre: !offEnd()
-
-long getLength(ListRef L); // return the length of the list
-
-long equals (ListRef A, ListRef B); // return true iff the two lists have the same keys
-// in the same order
-
-/*** Manipulation procedures ***/
-void makeEmpty(ListRef L); // make the list empty. Post: isEmpty()
-
-void moveFirst(ListRef L); // set current marker to the first element in the list
-// Pre: !isEmpty(); Post: !offEnd()
-
-void moveLast(ListRef L); // set current marker to the last element in the list
-// Pre: !isEmpty(); Post: !offEnd()
-
-void movePrev(ListRef L); // set current marker one step backward.
-// Pre: !offEnd(); Post: offEnd() only if atFirst() was true
-
-void moveNext(ListRef L); // set current marker one step forward.
-// Pre: !offEnd(); Post: offEnd() only if atLast() was true
-
-void insertBeforeFirst(ListRef L, long data); // Inserts new element before first
-// Post: !isEmpty()
-
-void insertAfterLast(ListRef L, long data); // Inserts new element after last one
-// Post: !isEmpty()
-
-void insertBeforeCurrent(ListRef L, long data); // Inserts new element before current one
-// Pre: !offEnd(); Post: !isEmpty(), !offEnd()
-
-void insertAfterCurrent(ListRef L, long data); // Inserts new element after current one
-// Pre: !offEnd(); Post: !isEmpty(), !offEnd()
-
-void deleteFirst(ListRef L); // delete the first element. Pre: !isEmpty()
-
-void deleteLast(ListRef L); // delete the last element. Pre: !isEmpty()
-
-void deleteCurrent(ListRef L); // delete the current element.
-// Pre: !isEmpty(), !offEnd(); Post: offEnd()
-
-/*** Other operations ***/
-void prlongList(FILE* out, ListRef L);
-
-ListRef copyList(ListRef L);
+void delete(ListRef L);
 
 #endif

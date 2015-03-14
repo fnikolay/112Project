@@ -27,16 +27,16 @@ long *radix(long *A, long len){
       //printf("%ld ", A[i]);
       digit = A[i] % base;
       digit = digit/n;
-      insertAfterLast(buckets[digit], A[i]);
+      insert(buckets[digit], A[i]);
     }
 
     long index = 0;
     for(long i = 0; i < 10; i++){
       if(!isEmpty(buckets[i])){
         while(!isEmpty(buckets[i])){
-          A[index] = getFirst(buckets[i]);
+          A[index] = get(buckets[i]);
           index++;
-          deleteFirst(buckets[i]);
+          delete(buckets[i]);
         }
       }
     }
