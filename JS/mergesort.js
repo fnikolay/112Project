@@ -45,6 +45,7 @@ for (var i = 0; i < array.length; ++i) {
   array[i] = parseInt(array[i]);
 }
 var start = new Date().getTime() ;
-mergeSort(array, array.slice(), array.length); // mergesort
+mergeSort(array, array.slice(), array.length - 1); // mergesort
 var end = new Date().getTime();
 console.log(end - start);
+//console.log(array);
