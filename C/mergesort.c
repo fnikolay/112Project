@@ -5,6 +5,7 @@
 #include <time.h>
 #include <limits.h>
 
+//main mergesort function
 void mergeSort(int *array, int s, int f){
   int mid = 0;
   int * temp;
@@ -26,26 +27,26 @@ void mergeSort(int *array, int s, int f){
 
   //main for loop that goes through the length
   //of the array
-  for(i = 0; i < len; i++){
+  int j;
+  for(j = 0; j < len; j++){
     if (tempF <= f - s){
       if (tempS <= mid - s){
         //perform the comparison if the left
         //int is larger than the right one
-        if(temp[tempS] > temp[tempF]){
-          array[i + s] = temp[tempF++];
+        if(temp[tempS] < temp[tempF]){
+          array[j + s] = temp[tempS++];
         }else{
-          array[i + s] = temp[tempS++];
+          array[j + s] = temp[tempF++];
         }
       }else{
-        array[i + s] = temp[tempF++];
+        array[j + s] = temp[tempF++];
       }
     }else{
-      array[i + s] = temp[tempS++];
+      array[j + s] = temp[tempS++];
     }
   }
   free(temp);
 }
-
 
 int main(int argc, char *argv[]){
   if(argc < 2){
@@ -70,17 +71,22 @@ int main(int argc, char *argv[]){
   }
 
   clock_t start = clock(), diff;
-  mergeSort(A ,0, i);
+  mergeSort(A ,0, i); int j;
+  for (j = 0; j < i; ++j)
+    printf("%d\n", A[j]);
+  
   diff = clock() - start;
+<<<<<<< HEAD
 
-  //int j;
-  //for (j = 0; j < i; ++j)
-   // printf("%d\n", A[j]);
+  float msec = diff * 1000 / (float) CLOCKS_PER_SEC;
+ 
 
+  printf("Time taken %.9lf\n", msec);
+
+=======
   printf("%lu\n", diff);
-
+>>>>>>> FETCH_HEAD
   fclose(fp);
-
   return 0;
 }
 
