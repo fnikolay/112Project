@@ -24,9 +24,15 @@ function buildHeap(array) {
 };
 
 function heapSort(array) {
+<<<<<<< HEAD
     buildHeap(array);
     var start = new Date().getTime();
     var temp;
+=======
+    buildMaxHeap(array);
+    var start = new Date().getTime() ;
+    //console.log(start);
+>>>>>>> FETCH_HEAD
     for (var i = array.length - 1; i >= 1; i--) {
         temp = array[0];
         array[0] = array[i];
@@ -34,10 +40,17 @@ function heapSort(array) {
         array.heapSize--;
         heapify(array, 0);
     }
+<<<<<<< HEAD
 
     //for(j=0; j<array.length; j++){
         //console.log(array[j]);
     //}
+=======
+    //var end = new Date().getTime();
+    //console.log(end);
+    //console.log(end-start);
+
+>>>>>>> FETCH_HEAD
 };
 
 if (process.argv.length != 3) {
@@ -48,6 +61,7 @@ var array = fs.readFileSync(process.argv[2]).toString().split("\n");
 for (var i = 0; i < array.length; ++i) {
   array[i] = parseInt(array[i]);
 }
+<<<<<<< HEAD
 var start = new Date().getTime() ;
 heapSort(array, 0, array.length - 1); // heapsort
 for (var i = 0; i < array.length; ++i) {
@@ -55,3 +69,10 @@ for (var i = 0; i < array.length; ++i) {
 }
 var end = new Date().getTime();
 console.log((end-start));
+=======
+var start = new Date().getTime();
+heapSort(array, 0, array.length - 1);
+var end = new Date().getTime();
+console.log(end - start);
+
+>>>>>>> FETCH_HEAD

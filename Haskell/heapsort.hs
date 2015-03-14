@@ -1,7 +1,13 @@
 import System.CPUTime
 import System.Environment
+<<<<<<< HEAD
 import System.IO
 import Text.Printf
+=======
+import Control.DeepSeq
+import Data.Graph.Inductive.Internal.Heap(
+  Heap(..),insert,findMin,deleteMin)
+>>>>>>> FETCH_HEAD
 
 lim :: Int
 lim = 10^6
@@ -39,6 +45,7 @@ main = do
     handle <- openFile n ReadMode
     contents <- hGetContents handle
     let singlewords = words contents
+<<<<<<< HEAD
         list = f singlewords    
 
     let sorted = heapsort list
@@ -55,3 +62,13 @@ main = do
 
     printf "Computation time: %0.9f sec\n" (diff :: Double)
     printf "Individual time: %0.9f sec\n" (diff / fromIntegral lim :: Double)
+=======
+        list = f singlewords
+
+    start <- getCPUTime
+    let sorted = heapsort list
+    end <- sorted `deepseq` getCPUTime
+    let diff = (end - start) `div` (10^9)
+    printf "%d\n" (diff :: Integer)
+    hClose handle
+>>>>>>> FETCH_HEAD

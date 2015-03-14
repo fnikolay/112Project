@@ -6,6 +6,7 @@ Ryan Fulscher rfulsche@ucsc.edu
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 void swap(int *array, int i, int j) {
   int temp = array[i];
@@ -50,21 +51,18 @@ int main(int argc, char *argv[]) {
   char *buffer = NULL;
   size_t nbytes;
   size_t arraysize = 0;
-  while (getline(&buffer, &nbytes, file) != EOF) // Read sequence length
-    ++arraysize;
-
-  rewind(file);
+  getline(&buffer, &nbytes, file); // Read sequence length
+  arraysize = atoi(buffer);
   int *array = malloc(arraysize*sizeof(int));
-  for (int i = 0; i < arraysize; ++i) {
+  for (size_t i = 0; i < arraysize; ++i) {
     getline(&buffer, &nbytes, file); // Read values from file
     array[i] = atoi(buffer);
   }
   free(buffer);
-
+  clock_t start = clock(), diff;
   sort(array, 0, arraysize - 1); // Quicksort
-  for (int i = 0; i < arraysize; ++i)
-    printf("%d\n", array[i]);
-
+  diff = clock() - start;
+  printf("%lu\n", diff);
   free(array);
   return 0;
 }
