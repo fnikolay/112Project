@@ -1,0 +1,16 @@
+README:
+
+Compiling and running code:
+Four subdirectories:
+
+  1.  C: 
+      Makefile: compiles all code with make command.
+      To run the different sorts type in the sort you want to run and as a parameter the test file in the rand subdirectory. Example : "heapsort ../rand/10000"
+
+  2.  Haskell:
+      Makefile: compiles all code with the make command.
+      To run the different sorts use the same process as for the C subdirectory.
+
+  3.  JS:
+      To compile and run the different sorts type in node sort test file.
+      Example: "node quicksort.js ../rand/10000"
